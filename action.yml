@@ -2,8 +2,8 @@ name: "foundry-zksync-toolchain"
 description: "Install Foundry ZKsync"
 author: "Foundry (fork)"
 branding:
-  color: "gray-dark"
-  icon: "play-circle"
+  color: "blue"
+  icon: "triangle"
 
 inputs:
   cache:
@@ -31,9 +31,9 @@ inputs:
   version:
     default: "nightly"
     description: |
-      Foundry version.
+      Foundry-ZKsync version.
 
-      This version number has to match a released version of Foundry.
+      This version number has to match a released version of Foundry ZKsync.
       The default value is `nightly`, which will pull the latest nightly build.
     required: false
 
