@@ -1,6 +1,6 @@
-name: "foundry-toolchain"
-description: "Install Foundry"
-author: "Foundry"
+name: "foundry-zksync-toolchain"
+description: "Install Foundry ZKsync"
+author: "Foundry (fork)"
 branding:
   color: "gray-dark"
   icon: "play-circle"

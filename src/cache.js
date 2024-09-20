@@ -9,7 +9,7 @@ const { State } = require("./constants.js");
 // Define constants for cache paths and prefix
 const HOME = os.homedir();
 const PLATFORM = os.platform();
-const CACHE_PATHS = [path.join(HOME, ".foundry/cache/rpc")];
+const CACHE_PATHS = [path.join(HOME, ".foundry-zksync/cache/rpc")];
 const CACHE_PREFIX = `${PLATFORM}-foundry-chain-fork-`;
 
 /**
