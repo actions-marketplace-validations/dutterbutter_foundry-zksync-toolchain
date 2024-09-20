@@ -1,7 +1,10 @@
-## `foundry-toolchain` Action
+## `foundry-zksync-toolchain` Action
 
-This GitHub Action installs [Foundry](https://github.com/foundry-rs/foundry), the blazing fast, portable and modular
-toolkit for Ethereum application development.
+🚀 **This repository is a fork of the `foundry-toolchain` action, adapted to support `foundry-zksync`, which is a fork of Foundry.**  
+💡 Full credit goes to the original authors for their work! 🙏
+
+This GitHub Action installs [Foundry-ZKsync](https://github.com/matter-labs/foundry-zksync), the blazing fast, portable and modular
+toolkit for ZKsync application development.
 
 ### Example workflow
 
@@ -12,35 +15,45 @@ name: test
 
 jobs:
   check:
-    name: Foundry project
+    name: Foundry ZKsync project
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
         with:
           submodules: recursive
 
-      - name: Install Foundry
-        uses: foundry-rs/foundry-toolchain@v1
+      - name: Install Foundry-ZKsync
+        uses: duttbutter/foundry-zksync-toolchain@v1
 
       - name: Run tests
-        run: forge test -vvv
+        run: forge test --zksync -vvv
 
       - name: Run snapshot
-        run: forge snapshot
+        run: forge snapshot --zksync
 ```
 
 ### Inputs
 
-| **Name**             | **Required** | **Default**                           | **Description**                                                                                              | **Type** |
-| -------------------- | ------------ | ------------------------------------- | ------------------------------------------------------------------------------------------------------------ | -------- |
-| `cache`              | No           | `true`                                | Whether to cache RPC responses or not.                                                                       | bool     |
-| `version`            | No           | `nightly`                             | Version to install, e.g. `nightly` or `1.0.0`. **Note:** Foundry only has nightly builds for the time being. | string   |
-| `cache-key`          | No           | `${{ github.job }}-${{ github.sha }}` | The cache key to use for caching.                                                                            | string   |
-| `cache-restore-keys` | No           | `[${{ github.job }}-]`                | The cache keys to use for restoring the cache.                                                               | string[] |
+- **`cache`** (Optional, Default: `true`)  
+  - Whether to cache RPC responses or not.  
+  - Type: `bool`
+
+- **`version`** (Optional, Default: `nightly`)  
+  - Version to install, e.g., `nightly` or `1.0.0`.  
+  - **Note:** Foundry only has nightly builds for the time being.  
+  - Type: `string`
+
+- **`cache-key`** (Optional, Default: `${{ github.job }}-${{ github.sha }}`)  
+  - The cache key to use for caching.  
+  - Type: `string`
+
+- **`cache-restore-keys`** (Optional, Default: `[${{ github.job }}-]`)  
+  - The cache keys to use for restoring the cache.  
+  - Type: `string[]`
 
 ### RPC Caching
 
-By default, this action matches Forge's behavior and caches all RPC responses in the `~/.foundry/cache/rpc` directory.
+By default, this action matches Forge's behavior and caches all RPC responses in the `~/.foundry-zksync/cache/rpc` directory.
 This is done to speed up the tests and avoid hitting the rate limit of your RPC provider.
 
 The logic of the caching is as follows:
@@ -54,8 +67,8 @@ If you would like to disable the caching (e.g. because you want to implement you
 the `cache` input to `false`, like this:
 
 ```yml
-- name: Install Foundry
-  uses: foundry-rs/foundry-toolchain@v1
+- name: Install Foundry ZKsync
+  uses: dutterbutter/foundry-zksync-toolchain@v1
   with:
     cache: false
 ```
@@ -71,16 +84,16 @@ For instance, if you wish to utilize a shared cache between two distinct jobs, t
 applied:
 
 ```yml
-- name: Install Foundry
-  uses: foundry-rs/foundry-toolchain@v1
+- name: Install Foundry ZKsync
+  uses: dutterbutter/foundry-zksync-toolchain@v1
   with:
     cache-key: custom-seed-test-${{ github.sha }}
     cache-restore-keys: |-
       custom-seed-test-
       custom-seed-
 ---
-- name: Install Foundry
-  uses: foundry-rs/foundry-toolchain@v1
+- name: Install Foundry ZKsync
+  uses: dutterbutter/foundry-zksync-toolchain@v1
   with:
     cache-key: custom-seed-coverage-${{ github.sha }}
     cache-restore-keys: |-
@@ -113,11 +126,11 @@ calls by using [Multicall](https://github.com/mds1/multicall).
 You can add the output of Forge and Cast commands to GitHub step summaries. The summaries support GitHub flavored
 Markdown.
 
-For example, to add the output of `forge snapshot` to a summary, you would change the snapshot step to:
+For example, to add the output of `forge snapshot --zksync` to a summary, you would change the snapshot step to:
 
 ```yml
 - name: Run snapshot
-  run: NO_COLOR=1 forge snapshot >> $GITHUB_STEP_SUMMARY
+  run: NO_COLOR=1 forge snapshot --zksync >> $GITHUB_STEP_SUMMARY
 ```
 
 See the official
@@ -129,8 +142,6 @@ for more information.
 When opening a PR, you must build the action exactly following the below steps for CI to pass:
 
 ```console
-$ npm ci
-$ npm run build
+$ bun install
+$ bun run build
 ```
-
-You **have** to use Node.js 20.x.

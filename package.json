@@ -1,13 +1,13 @@
 {
-  "name": "@foundry-rs/foundry-toolchain",
-  "version": "1.0.8",
+  "name": "dutterbutter/foundry-zksync-toolchain",
+  "version": "1.0.0",
   "license": "SEE LICENSE IN LICENSE",
   "main": "dist/index.js",
   "keywords": [
-    "foundry",
-    "ethereum",
+    "foundry-zksync",
+    "zksync",
     "solidity",
-    "evm",
+    "zkevm",
     "forge",
     "cast",
     "dapp",
