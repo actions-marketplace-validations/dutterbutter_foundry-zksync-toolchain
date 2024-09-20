@@ -18,12 +18,12 @@ jobs:
     name: Foundry ZKsync project
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           submodules: recursive
 
       - name: Install Foundry-ZKsync
-        uses: duttbutter/foundry-zksync-toolchain@v1
+        uses: dutterbutter/foundry-zksync-toolchain@v1
 
       - name: Run tests
         run: forge test --zksync -vvv
